@@ -6,17 +6,14 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import logo from "../../assets/navbar/logo.png";
-
-import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { BsMenuButton } from "react-icons/bs";
 
 const NavBar = () => {
   const [navState, setNavState] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false); // State to control cart toggle
-  const [menuOpen, setMenuOpen] = useState(false); // State to control cart toggle
-  const [totalQTY, setTotalQTY] = useState(0); // Local state for cart quantity
+  const [cartOpen, setCartOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [totalQTY, setTotalQTY] = useState(0);
 
   const onNavScroll = () => {
     if (window.scrollY > 30) {
@@ -33,132 +30,116 @@ const NavBar = () => {
     };
   }, []);
 
-  // Function to toggle the cart state
   const onCartToggle = () => {
     setCartOpen((prevCartOpen) => !prevCartOpen);
   };
+
   const onMenuToggle = () => {
-    setMenuOpen((menuOpen) => !menuOpen);
+    setMenuOpen((prevMenuOpen) => !prevMenuOpen);
   };
 
   return (
     <>
-      {/* NavBar */}
       <header
-        className={
+        className={`${
           !navState
-            ? "absolute top-0 left-0 right-0 opacity-100 z-50 bg-transparent"
-            : "fixed top-0 left-0 right-0 flex items-center justify-center opacity-100 z-[200] bg-[#000000ca]"
-        }
+            ? "absolute top-0 left-0 right-0 z-50 bg-transparent"
+            : "fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-90"
+        } transition-all duration-300`}
       >
-        <nav className="flex px-2 md:px-5 w-[100%] items-center justify-between py-[8px] md:h-[70px] bg-[#00000032] ">
+        <nav className="flex items-center justify-between w-full p-4 md:px-8 md:py-4 bg-transparent">
+          {/* Logo */}
           <div className="flex items-center">
             <img
               src={logo}
               alt="logo"
-              className={`md:w-[150px] w-[100px] h-auto transition-transform duration-300 ${
-                navState ? "" : ""
-              }`}
+              className="w-24 md:w-36 transition-transform duration-300"
             />
           </div>
 
-          {/* Search Input Field */}
-          <div
-            className={`${
-              searchOpen ? "block" : "hidden"
-            } absolute top-0 left-0 right-0 mx-auto mt-2 px-4  lg:px-8 w-full max-w-md flex items-center gap-2 justify-between`}
-          >
-            <input
-              type="text"
-              placeholder="Search..."
-              className="w-full p-2 border rounded-md shadow-md bg-[#0000003e]  text-white placeholder-white"
-            />
-            <button
-              onClick={() => setSearchOpen(false)}
-              className="text-white bg-black cursor-pointer rounded p-1"
-            >
-              <XMarkIcon className="w-6 h-6" />
-            </button>
-          </div>
-
-          {/* Desktop and Mobile Menu */}
-          <div className="flex items-center gap-3">
-            <div className="md:flex gap-3 hidden">
+          {/* Links and Icons */}
+          <div className="flex gap-6">
+            <div className="hidden md:flex items-center gap-6">
               <Link
-                className=" uppercase text-[#fff] font-[500] text-[14px] hover:text-orange-600 duration-300"
-                to={"/"}
+                className="text-white uppercase font-medium text-sm hover:text-orange-600 transition duration-300"
+                to={`/`}
               >
-                Home
-              </Link>
-              <Link
-                className=" uppercase text-[#fff] font-[500] text-[14px] hover:text-orange-600 duration-300"
-                to={"/"}
-              >
-                Our Menu
-              </Link>
-              <Link
-                className=" uppercase text-[#fff] font-[500] text-[14px] hover:text-orange-600 duration-300"
-                to={"/"}
-              >
-                Our Shop
-              </Link>
-              <Link
-                className=" uppercase text-[#fff] font-[500] text-[14px] hover:text-orange-600 duration-300"
-                to={"/"}
-              >
-                Contact
-              </Link>
-              <Link
-                className=" uppercase text-[#fff] font-[500] text-[14px] hover:text-orange-600 duration-300"
-                to={"/"}
-              >
-                About
+                HOME
               </Link>
             </div>
+            <div className="hidden md:flex items-center gap-6">
+              {["Our Menu", "Our Shop", "Contact", "About"].map(
+                (link, index) => (
+                  <Link
+                    key={index}
+                    className="text-white uppercase font-medium text-sm hover:text-orange-600 transition duration-300"
+                    to={`/${link.toLowerCase().replace(" ", "-")}`}
+                  >
+                    {link}
+                  </Link>
+                )
+              )}
+            </div>
+          </div>
+          {/* Mobile Menu & Icons */}
+          <div className="flex items-center gap-4 md:gap-6">
             {/* Search Icon */}
-            <button
-              type="button"
-              className={`flex items-center ms-3 me-1 rounded-full transition-colors duration-300 ${
-                navState ? "text-white" : "text-white hover:text-orange-600"
+            <div
+              className={`relative flex items-center ${
+                searchOpen ? `` : `overflow-hidden`
               }`}
-              onClick={() => setSearchOpen(!searchOpen)}
             >
-              <MagnifyingGlassIcon className="w-6 h-6" />
-            </button>
+              <button
+                className={`${
+                  navState ? "text-white" : "text-white"
+                } transition-colors duration-300 hover:text-orange-600`}
+                onClick={() => setSearchOpen(!searchOpen)}
+              >
+                {searchOpen ? (
+                  <button
+                    onClick={() => setSearchOpen(false)}
+                    className="text-white  p-1 relative z-[1000] ms-1 rounded-full"
+                  >
+                    <XMarkIcon className="w-6 h-6" />
+                  </button>
+                ) : (
+                  <MagnifyingGlassIcon className="w-6 h-6" />
+                )}
+              </button>
+
+              <div
+                className={`absolute right-0 top-0 h-full  bg-transparent bg-opacity-60 transition-transform duration-500 ease-in-out flex items-center ${
+                  searchOpen ? "translate-x-0 " : "translate-x-full"
+                }`}
+              >
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="w-[150px] md:w-64 px-2 py-[4px] border bg-transparent bg-opacity-60 text-white placeholder-white focus:outline-none"
+                />
+              </div>
+            </div>
 
             {/* Cart Icon */}
             <button
-              type="button"
-              onClick={onCartToggle} // Toggle cart visibility
-              className="relative flex items-center  rounded-full transition-transform duration-300 active:scale-110"
+              onClick={onCartToggle}
+              className="relative text-white hover:text-orange-600 transition-transform duration-300"
             >
-              <ShoppingBagIcon
-                className={`w-6 h-6 ${
-                  navState ? "text-white" : "text-white hover:text-orange-600"
-                }`}
-              />
-              <div
-                className={`absolute top-[-8px] right-[-8px] flex items-center justify-center w-5 h-5 text-xs font-medium rounded-full ${
-                  navState
-                    ? "bg-slate-900 text-white shadow-slate-900"
-                    : "bg-white text-slate-900 shadow-slate-100"
-                }`}
-              >
+              <ShoppingBagIcon className="w-6 h-6" />
+              <div className="absolute top-[-8px] right-[-8px] flex items-center justify-center w-5 h-5 text-xs font-medium bg-white text-black rounded-full">
                 {totalQTY}
               </div>
             </button>
-            <button
-              type="button"
-              onClick={onMenuToggle} // Toggle cart visibility
-              className="relative flex md:hidden items-center  rounded-full transition-transform duration-300 active:scale-110"
-            >
+
+            {/* Mobile Menu Icon */}
+            <button onClick={onMenuToggle} className="text-white md:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="#fff"
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="size-6"
+                className="w-6 h-6"
               >
                 <path
                   strokeLinecap="round"
@@ -169,28 +150,42 @@ const NavBar = () => {
             </button>
           </div>
         </nav>
+
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="absolute top-[70px] left-0 right-0 bg-black bg-opacity-90 md:hidden flex flex-col items-center py-4 space-y-4">
+            {["Home", "Our Menu", "Our Shop", "Contact", "About"].map(
+              (link, index) => (
+                <Link
+                  key={index}
+                  className="text-white uppercase font-medium text-lg hover:text-orange-600"
+                  to={`/${link.toLowerCase().replace(" ", "-")}`}
+                  onClick={onMenuToggle}
+                >
+                  {link}
+                </Link>
+              )
+            )}
+          </div>
+        )}
       </header>
 
-      {/* Cart Modal (conditionally rendered based on cartOpen state) */}
+      {/* Cart Modal */}
       <div
-        className={`fixed top-0 inset-0  z-50 flex justify-end items-start transition-transform duration-300 ${
+        className={`fixed top-0 inset-0 z-50 flex justify-end transition-transform duration-300 ${
           cartOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="bg-white p-4 w-[90%] max-w-lg rounded-lg shadow-lg borders mt-12">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-bold">Your Cart</h2>
-            <button
-              onClick={onCartToggle}
-              className="text-black p-1 hover:bg-gray-200 rounded-full"
-            >
-              <XMarkIcon className="w-6 h-6" />
+        <div className="bg-white w-[90%] max-w-md h-screen p-6 overflow-y-auto shadow-lg">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-semibold">Your Cart</h2>
+            <button onClick={onCartToggle} className="p-1">
+              <XMarkIcon className="w-6 h-6 text-gray-500" />
             </button>
           </div>
-          {/* Cart Items (You can replace this with dynamic cart item rendering) */}
-          <p>Your cart is currently empty.</p>
+          <p className="text-gray-700">Your cart is currently empty.</p>
           <button
-            className="mt-4 w-full bg-black text-white py-2 rounded-md"
+            className="mt-6 w-full py-2 bg-black text-white rounded-md"
             onClick={onCartToggle}
           >
             Close Cart
