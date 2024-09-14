@@ -154,18 +154,25 @@ const NavBar = () => {
         {/* Mobile Menu */}
         {menuOpen && (
           <div className="absolute top-[70px] left-0 right-0 bg-black bg-opacity-90 md:hidden flex flex-col items-center py-4 space-y-4">
-            {["Home", "Our Menu", "Our Shop", "Contact", "About"].map(
-              (link, index) => (
-                <Link
-                  key={index}
-                  className="text-white uppercase font-medium text-lg hover:text-orange-600"
-                  to={`/${link.toLowerCase().replace(" ", "-")}`}
-                  onClick={onMenuToggle}
-                >
-                  {link}
-                </Link>
-              )
-            )}
+            <div className=" md:flex items-center gap-6">
+              <Link
+                className="text-white uppercase font-medium text-lg hover:text-orange-600"
+                to={`/`}
+              >
+                HOME
+              </Link>
+            </div>
+
+            {["Our Menu", "Our Shop", "Contact", "About"].map((link, index) => (
+              <Link
+                key={index}
+                className="text-white uppercase font-medium text-lg hover:text-orange-600"
+                to={`/${link.toLowerCase().replace(" ", "-")}`}
+                onClick={onMenuToggle}
+              >
+                {link}
+              </Link>
+            ))}
           </div>
         )}
       </header>
