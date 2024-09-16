@@ -163,7 +163,7 @@ const NavBar = () => {
               </Link>
             </div>
 
-            {["Our Menu", "Our Shop", "Contact", "About"].map((link, index) => (
+            {["OurMenu", "Our Shop", "Contact", "About"].map((link, index) => (
               <Link
                 key={index}
                 className="text-white uppercase font-medium text-lg hover:text-orange-600"
