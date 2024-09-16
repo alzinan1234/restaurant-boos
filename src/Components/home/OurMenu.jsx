@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const OurMenu = () => {
   const [products, setProducts] = useState([]);
@@ -38,7 +39,7 @@ const OurMenu = () => {
                   className="h-auto rounded-t-lg border-4 w-[100%]"
                 />
               </div>
-              <div>
+              <div className="relative">
                 <h2 className="text-xl font-semibold mt-4 uppercase">
                   {product.name}
                 </h2>
@@ -48,6 +49,12 @@ const OurMenu = () => {
                     ${product.price}
                   </p>
                 </div>
+                <Link
+                  to={`/menu/${product?._id}`}
+                  className="flex hover:bg-red-700 cursor-pointer bg-[#EF4444] text-white font-bold h-[40px] w-[100%] justify-center items-center absolute bottom-0"
+                >
+                  View Details
+                </Link>
               </div>
             </div>
           </div>

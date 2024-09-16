@@ -1,5 +1,9 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable no-undef */
+/* eslint-disable react-refresh/only-export-components */
+import { useState, useEffect } from "react";
+import { addToLocalStorage } from "../Layout/LocalStorage";
 
+// Function to handle adding product to local storage
 const Chef = () => {
   const [products, setProducts] = useState([]);
   const [showAll, setShowAll] = useState(false);
@@ -47,7 +51,10 @@ const Chef = () => {
               <p className="font-bold text-md md:text-lg mt-4 text-red-700">
                 ${product.price}
               </p>
-              <button className="mt-4 w-full text-sm md:text-base p-3 bg-pink-700 rounded shadow text-white hover:bg-red-700 transition-colors duration-300">
+              <button
+                onClick={() => addToLocalStorage(product)}
+                className="mt-4 w-full text-sm md:text-base p-3 bg-pink-700 rounded shadow text-white hover:bg-red-700 transition-colors duration-300"
+              >
                 Add To Cart
               </button>
             </div>

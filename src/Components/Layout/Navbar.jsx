@@ -1,12 +1,14 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import {
-  HeartIcon,
   MagnifyingGlassIcon,
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import logo from "../../assets/navbar/logo.png";
 import { Link } from "react-router-dom";
+import Cart from "./Cart";
+import { getFromLocalStorage } from "./LocalStorage";
 
 const NavBar = () => {
   const [navState, setNavState] = useState(false);
@@ -37,6 +39,10 @@ const NavBar = () => {
   const onMenuToggle = () => {
     setMenuOpen((prevMenuOpen) => !prevMenuOpen);
   };
+
+  const cartItem = getFromLocalStorage();
+
+  useEffect(() => {}, [cartItem]);
 
   return (
     <>
@@ -127,7 +133,7 @@ const NavBar = () => {
             >
               <ShoppingBagIcon className="w-6 h-6" />
               <div className="absolute top-[-8px] right-[-8px] flex items-center justify-center w-5 h-5 text-xs font-medium bg-white text-black rounded-full">
-                {totalQTY}
+                {cartItem?.length}
               </div>
             </button>
 
@@ -190,13 +196,8 @@ const NavBar = () => {
               <XMarkIcon className="w-6 h-6 text-gray-500" />
             </button>
           </div>
-          <p className="text-gray-700">Your cart is currently empty.</p>
-          <button
-            className="mt-6 w-full py-2 bg-black text-white rounded-md"
-            onClick={onCartToggle}
-          >
-            Close Cart
-          </button>
+          {/* -------- all item --------- */}
+          <Cart cartItem={cartItem} />
         </div>
       </div>
     </>

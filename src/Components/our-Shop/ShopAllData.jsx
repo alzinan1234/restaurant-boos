@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { addToLocalStorage } from "../Layout/LocalStorage";
 
 // Function to handle adding product to local storage
-const Chef = () => {
+const ShopAllData = () => {
   const [products, setProducts] = useState([]);
   const [showAll, setShowAll] = useState(false);
 
@@ -24,7 +24,7 @@ const Chef = () => {
   }, []);
 
   // Limit the number of products shown if `showAll` is false
-  const displayedProducts = showAll ? products : products.slice(0, 4);
+  const displayedProducts = showAll ? products : products.slice(0, 50);
 
   return (
     <div className="flex flex-col items-center px-4">
@@ -63,16 +63,8 @@ const Chef = () => {
       </div>
 
       {/* Show 'Show All' button only if there are more than 8 products */}
-      {products.length > 8 && !showAll && (
-        <button
-          className="mt-8 px-6 py-2 bg-red-500 text-white font-bold rounded-lg hover:bg-red-800 transition-all duration-300"
-          onClick={() => setShowAll(true)}
-        >
-          View Full Menu
-        </button>
-      )}
     </div>
   );
 };
 
-export default Chef;
+export default ShopAllData;

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { addToLocalStorage } from "../Layout/LocalStorage";
 
 // Function to handle adding product to local storage
-const Chef = () => {
+const ShoupData = () => {
   const [products, setProducts] = useState([]);
   const [showAll, setShowAll] = useState(false);
 
@@ -24,10 +24,10 @@ const Chef = () => {
   }, []);
 
   // Limit the number of products shown if `showAll` is false
-  const displayedProducts = showAll ? products : products.slice(0, 4);
+  const displayedProducts = showAll ? products : products.slice(0, 8);
 
   return (
-    <div className="flex flex-col items-center px-4">
+    <div className="flex flex-col items-center px-4 mb-10">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 w-full">
         {displayedProducts.map((product) => (
           <div
@@ -75,4 +75,4 @@ const Chef = () => {
   );
 };
 
-export default Chef;
+export default ShoupData;

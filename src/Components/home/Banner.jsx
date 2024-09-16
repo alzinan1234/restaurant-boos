@@ -102,7 +102,7 @@ const Banner = () => {
   ];
 
   return (
-    <div className="relative ">
+    <div className="relative Banner ">
       {/* --------- banner -------- */}
       <div className="relative flex justify-center items-center">
         <img

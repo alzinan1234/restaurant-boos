@@ -10,3 +10,7 @@ body {
 .borders {
   border: 1px solid red;
 }
+
+.Banner .splide__arrows {
+  display: none !important;
+}

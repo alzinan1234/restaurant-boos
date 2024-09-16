@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const TodayOffers = () => {
   const [products, setProducts] = useState([]);
@@ -20,7 +21,7 @@ const TodayOffers = () => {
   }, []);
 
   // Limit the number of products shown if `showAll` is false
-  const displayedProducts = showAll ? products : products.slice(0, 4);
+  const displayedProducts = showAll ? products : products.slice(0, 6);
 
   return (
     <div className="flex flex-col items-center mb-10">
@@ -37,13 +38,8 @@ const TodayOffers = () => {
                   alt={product.name}
                   className="h-auto rounded-t-lg border-4 w-[100%]"
                 />
-                <div>
-                  <button className="mt-8 px-6 py-2 bg-red-500  text-white font-bold rounded-lg hover:bg-red-800  transition-all duration-300">
-                    Order Now
-                  </button>
-                </div>
               </div>
-              <div>
+              <div className="relative">
                 <h2 className="text-xl font-semibold mt-4 uppercase">
                   {product.name}
                 </h2>
@@ -53,6 +49,12 @@ const TodayOffers = () => {
                     ${product.price}
                   </p>
                 </div>
+                <Link
+                  to={`/menu/${product?._id}`}
+                  className="flex hover:bg-red-700 cursor-pointer bg-[#EF4444] text-white font-bold h-[40px] w-[100%] justify-center items-center absolute bottom-0"
+                >
+                  View Details
+                </Link>
               </div>
             </div>
           </div>
@@ -65,7 +67,7 @@ const TodayOffers = () => {
           className="mt-8 px-6 py-2 bg-red-500  text-white font-bold rounded-lg hover:bg-red-800  transition-all duration-300"
           onClick={() => setShowAll(true)}
         >
-          ORDER YOUR FAVORITE FOOD
+          View Full Menu
         </button>
       )}
     </div>

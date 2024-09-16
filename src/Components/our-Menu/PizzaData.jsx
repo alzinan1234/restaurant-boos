@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { addToLocalStorage } from "../Layout/LocalStorage";
 
 // Function to handle adding product to local storage
-const Chef = () => {
+const PizzaData = () => {
   const [products, setProducts] = useState([]);
   const [showAll, setShowAll] = useState(false);
 
@@ -24,7 +24,7 @@ const Chef = () => {
   }, []);
 
   // Limit the number of products shown if `showAll` is false
-  const displayedProducts = showAll ? products : products.slice(0, 4);
+  const displayedProducts = showAll ? products : products.slice(0, 6);
 
   return (
     <div className="flex flex-col items-center px-4">
@@ -75,4 +75,4 @@ const Chef = () => {
   );
 };
 
-export default Chef;
+export default PizzaData;
