@@ -48,7 +48,7 @@ const MenuSlider = () => {
             <img
               src={item.imgSrc}
               alt={item.altText}
-              className="w-full h-72 object-cover p-4"
+              className="w-full h-80 object-cover p-4"
             />
             <p className=" text-[#000] text-2xl  bottom-9 left-0 right-0 absolute">
               {item.name}

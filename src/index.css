@@ -1,6 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap");
+
+body {
+  font-family: "Irish Grover", cursive;
+}
 
 .borders {
   border: 1px solid red;

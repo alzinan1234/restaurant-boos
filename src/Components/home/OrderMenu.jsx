@@ -1,17 +1,12 @@
 /* eslint-disable react/prop-types */
-const OrderMenu = ({
-  title = "write the text",
-  heading = "#000",
-  time,
-  text,
-}) => {
+const OrderMenu = ({ pColor, time, color, title }) => {
   return (
     <>
-      <div className="mt-10 mb-10">
+      <div className="mt-10 mb-10 font">
         <div className="flex flex-col items-center justify-items-center ">
-          <p className={`text-[${text}]`}>{time}</p>
+          <p className={`text-[${pColor}]`}>{time}</p>
           <h1
-            className={`text-[${heading}] text-3xl font-semibold pt-6 uppercase`}
+            className={`text-[${color}] text-3xl font-semibold pt-6 uppercase`}
           >
             {title}
           </h1>
