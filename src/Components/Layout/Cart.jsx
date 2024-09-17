@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { removeFromLocalStorage } from "./LocalStorage";
-
-const Cart = ({ cartItem }) => {
+const Cart = ({ cartItem, removeFromLocalStorage }) => {
   // Calculate total price
   const getTotalPrice = () => {
     return cartItem.reduce((total, item) => total + item.price, 0).toFixed(2);

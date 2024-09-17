@@ -8,7 +8,7 @@ import {
 import logo from "../../assets/navbar/logo.png";
 import { Link } from "react-router-dom";
 import Cart from "./Cart";
-import { getFromLocalStorage } from "./LocalStorage";
+import { localStorageManager } from "./LocalStorage";
 
 const NavBar = () => {
   const [navState, setNavState] = useState(false);
@@ -39,10 +39,25 @@ const NavBar = () => {
   const onMenuToggle = () => {
     setMenuOpen((prevMenuOpen) => !prevMenuOpen);
   };
+  const [cartItem, setCartItems] = useState([]);
 
-  const cartItem = getFromLocalStorage();
+  useEffect(() => {
+    // Fetch initial cart items from local storage
+    setCartItems(localStorageManager.getFromLocalStorage());
 
-  useEffect(() => {}, [cartItem]);
+    // Subscribe to localStorage updates
+    const unsubscribe = localStorageManager.subscribe((updatedItems) => {
+      setCartItems(updatedItems);
+    });
+
+    // Cleanup the subscription when the component unmounts
+    return () => unsubscribe();
+  }, []);
+
+  // Function to handle removing a product
+  const handleRemoveProduct = (productId) => {
+    localStorageManager.removeFromLocalStorage(productId);
+  };
 
   return (
     <>
@@ -197,7 +212,10 @@ const NavBar = () => {
             </button>
           </div>
           {/* -------- all item --------- */}
-          <Cart cartItem={cartItem} />
+          <Cart
+            cartItem={cartItem}
+            removeFromLocalStorage={handleRemoveProduct}
+          />
         </div>
       </div>
     </>

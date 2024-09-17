@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react-refresh/only-export-components */
 import { useState, useEffect } from "react";
-import { addToLocalStorage } from "../Layout/LocalStorage";
+import { localStorageManager } from "../Layout/LocalStorage";
 
 // Function to handle adding product to local storage
 const PizzaData = () => {
@@ -25,6 +25,11 @@ const PizzaData = () => {
 
   // Limit the number of products shown if `showAll` is false
   const displayedProducts = showAll ? products : products.slice(0, 6);
+
+  // Function to handle adding a product
+  const handleAddProduct = (product) => {
+    localStorageManager.addToLocalStorage2(product);
+  };
 
   return (
     <div className="flex flex-col items-center px-4">
@@ -52,7 +57,7 @@ const PizzaData = () => {
                 ${product.price}
               </p>
               <button
-                onClick={() => addToLocalStorage(product)}
+                onClick={() => handleAddProduct(product)}
                 className="mt-4 w-full text-sm md:text-base p-3 bg-pink-700 rounded shadow text-white hover:bg-red-700 transition-colors duration-300"
               >
                 Add To Cart
