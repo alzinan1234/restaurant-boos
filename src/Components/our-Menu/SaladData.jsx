@@ -1,29 +1,15 @@
-/* eslint-disable no-undef */
-/* eslint-disable react-refresh/only-export-components */
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { localStorageManager } from "../Layout/LocalStorage";
+import { displayedProducts } from "../../App";
 
 // Function to handle adding product to local storage
 const SaladData = () => {
-  const [products, setProducts] = useState([]);
   const [showAll, setShowAll] = useState(false);
 
-  useEffect(() => {
-    // Simulate fetching data from an API
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("../../../public/menu.json"); // Replace with actual API URL
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
-  // Limit the number of products shown if `showAll` is false
-  const displayedProducts = showAll ? products : products.slice(0, 8);
+  // Function to handle adding a product
+  const handleAddProduct = (product) => {
+    localStorageManager.addToLocalStorage2(product);
+  };
 
   return (
     <div className="flex flex-col items-center px-4">
@@ -50,7 +36,10 @@ const SaladData = () => {
               <p className="font-bold text-md md:text-lg mt-4 text-red-700">
                 ${product.price}
               </p>
-              <button className="mt-4 w-full text-sm md:text-base p-3 bg-pink-700 rounded shadow text-white hover:bg-red-700 transition-colors duration-300">
+              <button
+                onClick={() => handleAddProduct(product)}
+                className="mt-4 w-full text-sm md:text-base p-3 bg-pink-700 rounded shadow text-white hover:bg-red-700 transition-colors duration-300"
+              >
                 Add To Cart
               </button>
             </div>
@@ -59,7 +48,7 @@ const SaladData = () => {
       </div>
 
       {/* Show 'Show All' button only if there are more than 8 products */}
-      {products.length > 8 && !showAll && (
+      {displayedProducts.length > 8 && !showAll && (
         <button
           className="mt-8 px-6 py-2 bg-red-500 text-white font-bold rounded-lg hover:bg-red-800 transition-all duration-300"
           onClick={() => setShowAll(true)}

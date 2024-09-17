@@ -1,29 +1,12 @@
 /* eslint-disable no-undef */
 /* eslint-disable react-refresh/only-export-components */
 import { useState, useEffect } from "react";
+import { displayedProducts } from "../../App";
 
 // Function to handle adding product to local storage
 const ShopAllData = () => {
   const [products, setProducts] = useState([]);
   const [showAll, setShowAll] = useState(false);
-
-  useEffect(() => {
-    // Simulate fetching data from an API
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("../../../public/menu.json"); // Replace with actual API URL
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
-  // Limit the number of products shown if `showAll` is false
-  const displayedProducts = showAll ? products : products.slice(0, 50);
 
   return (
     <div className="flex flex-col items-center px-4">

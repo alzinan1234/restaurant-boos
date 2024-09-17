@@ -1,27 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { displayedProducts } from "../../App";
 
 const OurMenu = () => {
   const [products, setProducts] = useState([]);
   const [showAll, setShowAll] = useState(false);
 
-  useEffect(() => {
-    // Simulate fetching data from an API
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("../../../public/menu.json"); // Replace with actual API URL
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
   // Limit the number of products shown if `showAll` is false
-  const displayedProducts = showAll ? products : products.slice(0, 6);
 
   return (
     <div className="flex flex-col items-center">
@@ -62,7 +47,7 @@ const OurMenu = () => {
       </div>
 
       {/* Show 'Show All' button only if there are more than 8 products */}
-      {products.length > 8 && !showAll && (
+      {displayedProducts.length > 8 && !showAll && (
         <button
           className="mt-8 px-6 py-2 bg-red-500  text-white font-bold rounded-lg hover:bg-red-800  transition-all duration-300"
           onClick={() => setShowAll(true)}
